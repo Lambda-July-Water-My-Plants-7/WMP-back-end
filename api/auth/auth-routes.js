@@ -26,7 +26,10 @@ router.post('/login', (req, res) => {
                         res.status(500).json({ message: "Username and password do not match." })
                     }
                 }
-            }).catch((err) => res.status(500).json({ message: "Error during login process" }) )
+            }).catch((err) => res.status(500).json({ 
+                message: "Error during login process",
+                err: err.message
+             }) )
     }
 
 })
