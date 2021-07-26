@@ -18,9 +18,9 @@ const findPlantsByOwner = async (ownerID) => {
 const createPlant = async (neoPlant) => {
     neoPlant.plantID = Date.now();
 
-    const id = await db("plants")
+    await db("plants")
         .insert(neoPlant);
-    return await findPlantById(id);
+    return await findPlantById(neoPlant.plantID);
 }
 
 const updatePlant = async (neoPlant) => {
