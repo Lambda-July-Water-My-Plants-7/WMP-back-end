@@ -18,8 +18,8 @@ router.post("/", (req, res, next) => {
     neoPlant.plantID = Date.now();
 
     plants.createPlant(neoPlant)
-        .then((resp) => {
-            res.status(201).json(resp);
+        .then(() => {
+            res.status(201).json({...neoPlant});
         }).catch(next);
 })
 
