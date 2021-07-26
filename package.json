@@ -4,8 +4,8 @@
   "description": "node-express-postgres",
   "main": "index.js",
   "scripts": {
-    "migrateh": "knex migrate:latest",
-    "rollbackh": "knex migrate:rollback",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
     "start": "node index.js",
     "server": "nodemon index.js",
     "test": "jest --watch"
