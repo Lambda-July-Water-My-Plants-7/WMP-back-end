@@ -6,7 +6,7 @@ const secureByOwnerID = async (req, res, next) => {
 
     const target = await plants.findPlantById(plantID);
 
-    if (target === certID) {
+    if (target.ownerID === certID) {
         next();
     } else {
         res.status(403).json({ message: "That is not your plant" });
