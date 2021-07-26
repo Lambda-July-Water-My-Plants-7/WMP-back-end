@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
 
 })
 
-router.post('/register', [verifyUserPayload], (req, res) => {
+router.post('/register', (req, res) => {
     const neoUser = req.body;
 
     const hash = bcrypt.hashSync(neoUser.password, 12);
