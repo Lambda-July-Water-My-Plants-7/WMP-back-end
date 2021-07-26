@@ -3,13 +3,11 @@ const express = require('express');
 const users = require("./user-model");
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     users.findUsers()
     .then(resp => {
         res.status(200).json(resp);
-    }).catch((err) => {
-        res.status(500).json({ message: "Error retrieving users." })
-    })
+    }).catch(next);
 })
 
 module.exports = router;

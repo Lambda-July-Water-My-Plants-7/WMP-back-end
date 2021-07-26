@@ -11,7 +11,7 @@ module.exports = {
 async function registerUser(neoUser) {
     neoUser.userID = Date.now();
 
-    return await db('users').insert(neoUser, ['userID','username'])
+    return await db('users').insert(neoUser, ['userID','username', 'phoneNumber'])
 }
 
 // findAll
