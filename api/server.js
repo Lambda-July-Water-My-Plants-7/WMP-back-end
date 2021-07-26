@@ -26,7 +26,7 @@ server.get("/", (req,res) => {
 
 server.use((err, req, res, next) => {
     const status = err.status || 500;
-    req.status(status).json({
+    res.status(status).json({
         message: "Unknown server error",
         err: err.message
     })
