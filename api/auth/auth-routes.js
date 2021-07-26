@@ -38,7 +38,6 @@ router.post('/register', [verifyUserPayload], (req, res) => {
     const hash = bcrypt.hashSync(neoUser.password, 12);
     neoUser.password = hash;
 
-    
     users.registerUser(neoUser)
         .then((resp) => {
             res.status(201).json(resp);
