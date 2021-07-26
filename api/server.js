@@ -30,6 +30,8 @@ server.use((err, req, res, next) => {
         message: "Unknown server error",
         err: err.message
     })
+
+    if(1 === 0) next();
 })
 
 module.exports = server;
