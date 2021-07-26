@@ -38,6 +38,7 @@ const removePlant = async (plantID) => {
 
 module.exports = {
     findAllPlants,
+    findPlantById,
     findPlantsByOwner,
     createPlant,
     removePlant,
