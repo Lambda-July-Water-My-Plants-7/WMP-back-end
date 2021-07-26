@@ -27,10 +27,7 @@ router.post('/login', (req, res) => {
                         res.status(500).json({ message: "Username and password do not match." })
                     }
                 }
-            }).catch((err) => res.status(500).json({ 
-                message: "Error during login process",
-                err: err.message
-             }) )
+            }).catch(next);
     }
 
 })
@@ -45,15 +42,7 @@ router.post('/register', [verifyUserPayload], (req, res) => {
     users.registerUser(neoUser)
         .then((resp) => {
             res.status(201).json(resp);
-        }).catch((err) => {
-            if (err.errno === 19) {
-                res.status(400).json({ message: "Constraints violated " })
-            } else {
-                res.status(500).json({ message: "Unknown server error ",
-                error: err
-                })
-            }
-        })
+        }).catch(next);
 })
 
 router.post("/testToken", verifyToken, (req, res, next) => {

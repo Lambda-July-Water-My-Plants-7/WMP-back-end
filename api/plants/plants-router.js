@@ -4,7 +4,11 @@ const plants = require('./plants-model');
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-    res.status(200).json("Get the plants.");
+    const ownerID = req.decoded.id;
+    plants.findPlantsByOwner(ownerID)
+        .then(resp => {
+            res.status(200).json(resp);
+        }).catch(next);
 })
 
 module.exports = router;
