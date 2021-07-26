@@ -1,6 +1,6 @@
 
 exports.up = function(knex) {
-  return knex.schema.createTable('ipsource', table => {
+  return knex.schema.createTable('ipsou', table => {
       table.bigInteger('sourceID').unsigned().notNullable();
       table.text('sourcename', 128).notNullable();
       table.unique('sourceID');
