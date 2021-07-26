@@ -8,7 +8,7 @@ const { generateToken } = require('./auth-token');
 const { verifyToken } = require('./auth-middleware');
 const { verifyUserPayload } = require('../users/users-middleware');
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
 
 })
 
-router.post('/register', (req, res) => {
+router.post('/register', (req, res, next) => {
     const neoUser = req.body;
 
     const hash = bcrypt.hashSync(neoUser.password, 12);
