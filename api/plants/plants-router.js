@@ -1,4 +1,5 @@
 const express = require('express');
+const { secureByOwnerID } = require('./plants-middleware');
 
 const plants = require('./plants-model');
 const router = express.Router();
@@ -22,7 +23,7 @@ router.post("/", (req, res, next) => {
         }).catch(next);
 })
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", [secureByOwnerID], (req, res, next) => {
     const { id } = req.params;
     let neoPlant = req.body;
     neoPlant.plantID = id;
@@ -33,12 +34,14 @@ router.put("/:id", (req, res, next) => {
         }).catch(next);
 })
 
-router.delete("/:plantID", (req, res, next) => {
+router.delete("/:plantID", [secureByOwnerID], (req, res, next) => {
 const { plantID } = req.params;
 
     plants.removePlant(plantID)
-        .then((resp) => {
-            res.status(201).json(resp);
+        .then(() => {
+            res.status(200).json({
+                message: `Plant ID ${plantID} has been deleted.` 
+            });
         }).catch(next);
 })
 
