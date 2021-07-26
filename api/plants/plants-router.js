@@ -15,7 +15,6 @@ router.post("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
-    neoPlant.plantID = Date.now();
 
     plants.createPlant(neoPlant)
         .then(() => {
