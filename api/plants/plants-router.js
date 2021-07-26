@@ -7,9 +7,7 @@ router.get("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     plants.findPlantsByOwner(ownerID)
         .then(resp => {
-            res.status(200).json({
-                resp
-            });
+            res.status(200).json(resp);
         }).catch(next);
 })
 
@@ -17,6 +15,7 @@ router.post("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
+    neoPlant.plantID = Date.now();
 
     plants.createPlant(neoPlant)
         .then((resp) => {
