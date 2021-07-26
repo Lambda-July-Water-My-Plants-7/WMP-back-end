@@ -24,8 +24,9 @@ const createPlant = async (neoPlant) => {
 }
 
 const updatePlant = async (neoPlant) => {
-    const id = await db("plants")
-        .update(neoPlant, ['plantID', neoPlant.plantID]);
+    await db("plants")
+    .where({ plantID: neoPlant.plantID})
+        .update(neoPlant);
     return await findPlantById(neoPlant.plantID);
 }
 
