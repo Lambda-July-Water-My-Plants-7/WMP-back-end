@@ -8,7 +8,7 @@ router.get("/", (req, res, next) => {
     plants.findPlantsByOwner(ownerID)
         .then(resp => {
             res.status(200).json({
-                id: id,
+                id: ownerID,
                 resp
             });
         }).catch(next);
