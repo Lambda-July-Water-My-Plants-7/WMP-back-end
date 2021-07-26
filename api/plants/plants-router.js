@@ -23,10 +23,11 @@ router.post("/", (req, res, next) => {
         }).catch(next);
 })
 
-router.put("/:id", [secureByOwnerID], (req, res, next) => {
-    const { id } = req.params;
+router.put("/:plantID", [secureByOwnerID], (req, res, next) => {
+    const { plantID } = req.params;
     let neoPlant = req.body;
-    neoPlant.plantID = id;
+    neoPlant.plantID = plantID;
+    neoPlant.ownerID = req.decoded.id;
 
     plants.updatePlant(neoPlant)
         .then((resp) => {
