@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 
-const users = require("../../models/userHelpers");
+const users = require("../users/user-model");
 const router = express.Router()
 
 const { generateToken } = require('./auth-token');
