@@ -7,7 +7,10 @@ router.get("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     plants.findPlantsByOwner(ownerID)
         .then(resp => {
-            res.status(200).json(resp);
+            res.status(200).json({
+                id: id,
+                resp
+            });
         }).catch(next);
 })
 
