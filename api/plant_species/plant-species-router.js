@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkSpeciesID } = require('./plants-middleware');
+const { checkSpeciesID } = require('./plant-species-middleware');
 
 const species = require('./plant-species-model');
 const router = express.Router();
