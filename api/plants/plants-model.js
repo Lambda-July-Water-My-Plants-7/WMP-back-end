@@ -1,7 +1,8 @@
 const db = require('../../data/dbConfig');
 
 const findAllPlants = async () => {
-    return await db("plants");
+    return await db("plants")
+        .orderBy('plantID');
 }
 
 const findPlantById = async (plantID) => {
