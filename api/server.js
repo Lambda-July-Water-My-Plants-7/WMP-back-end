@@ -4,6 +4,7 @@ const helmet = require('helmet');
 
 const authRouter = require('./auth/auth-routes');
 const plantRouter = require('./plants/plants-router');
+const speciesRouter = require('./plant_species/plant-species-router');
 const userRouter = require('./users/users-router');
 
 const { logger } = require('./logger/logger');
@@ -18,6 +19,7 @@ server.use(logger);
 
 server.use("/api/auth", authRouter);
 server.use('/api/plants', [verifyToken], plantRouter);
+server.use('/api/species', [verifyToken], speciesRouter);
 server.use("/api/users", [verifyToken], userRouter);
 
 server.get("/", (req,res) => {
