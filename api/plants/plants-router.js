@@ -17,6 +17,10 @@ router.post("/", (req, res, next) => {
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
 
+    if (neoPlant.userID) {
+        delete neoPlant.userID;
+    }
+
     plants.createPlant(neoPlant)
         .then(() => {
             res.status(201).json({...neoPlant});
