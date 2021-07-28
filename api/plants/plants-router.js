@@ -4,8 +4,6 @@ const { checkPlantID, secureByOwnerID } = require('./plants-middleware');
 const plants = require('./plants-model');
 const router = express.Router();
 
-
-
 router.get("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     plants.findPlantsByOwner(ownerID)
