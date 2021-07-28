@@ -5,6 +5,18 @@ const { checkPlantID, secureByOwnerID } = require('./plants-middleware');
 const plants = require('./plants-model');
 const router = express.Router();
 
+const fileFilter = (req, file, cb) => {
+    switch(file.mimetype) {
+        case ('image/jpeg'):
+        case ('image/gif'):
+        case ('image/png'): {
+            cb(null, true);
+        }
+        default: 
+            cb(null, false);
+        
+    }
+}
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './uploads')
@@ -14,7 +26,11 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({
-    storage: storage
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
 });
 
 router.get("/", (req, res, next) => {
@@ -38,6 +54,7 @@ router.post("/", [upload.single('image')], (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
+    neoPlant.image = req.file.path;
 
     delete neoPlant.userID;
 
