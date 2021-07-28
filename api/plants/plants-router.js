@@ -12,6 +12,15 @@ router.get("/", (req, res, next) => {
         }).catch(next);
 })
 
+router.get("/:plantID", [checkPlantID, secureByOwnerID], 
+    (req, res, next) => {
+        const { plantID } = req.params;
+        plants.findPlantById({plantID})
+            .then((resp) => {
+                res.status(200).json(resp);
+            }).catch(next);
+    })
+
 router.post("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
