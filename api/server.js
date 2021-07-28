@@ -11,7 +11,6 @@ const { logger } = require('./logger/logger');
 const { verifyToken } = require('./auth/auth-middleware');
 
 const server = express();
-server.use('/uploads', express.static('uploads') );
 server.use(helmet() );
 server.use(express.json() );
 server.use(cors() );
