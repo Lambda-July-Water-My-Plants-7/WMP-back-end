@@ -2,13 +2,14 @@ const { phone } = require('phone');
 
 const validPhone = (req, res, next) => {
     const { phoneNumber } = req.body;
-    const response = phone(phoneNumber);
+    const response = phone(phoneNumber, { country: 'USA'});
 
     if (response.isValid) {
         next();
     } else {
         res.status(400).json({
-            message: "Improper phone number format"
+            message: "Improper phone number format",
+            phoneNumber: phoneNumber
         })
     }
 }
