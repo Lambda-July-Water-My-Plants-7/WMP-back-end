@@ -1,5 +1,19 @@
 const { phone } = require('phone');
 
+const validPhone = (req, res, next) => {
+    const { phoneNumber } = req.body;
+    const response = phone(phoneNumber, { country: 'USA'});
+
+    if (response.isValid) {
+        next();
+    } else {
+        res.status(400).json({
+            message: "Improper phone number format",
+            phoneNumber: phoneNumber
+        })
+    }
+}
+
 const verifyUserPayload = (req, res, next) => {
     const neoUser = req.body;
 
@@ -16,5 +30,6 @@ const verifyUserPayload = (req, res, next) => {
 }
 
 module.exports = {
-    verifyUserPayload
+    verifyUserPayload,
+    validPhone
 }
