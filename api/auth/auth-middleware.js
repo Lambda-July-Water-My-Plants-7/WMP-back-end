@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+const { TOKEN_SECRET } = require('../../config/secrets');
 
 function getUserID(req, res, next) {
     let neoID =0 
     if (req) {
         if (req.headers && req.headers.authorization) {
             const token = req.headers.authorization;
-            const secret = process.env.TOKEN_SECRET;
+            const secret = TOKEN_SECRET;
         
             if (token) {
                 jwt.verify(token, secret, (err, decoded) => {
@@ -23,7 +24,7 @@ function getUserID(req, res, next) {
 
 function verifyToken(req, res, next) {
     const token = req.headers.authorization;
-    const secret = process.env.TOKEN_SECRET;
+    const secret = TOKEN_SECRET;
 
     if (token) {
         jwt.verify(token, secret, (err, decoded) => {
