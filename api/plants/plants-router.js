@@ -15,7 +15,7 @@ router.get("/", (req, res, next) => {
 router.get("/:plantID", [checkPlantID, secureByOwnerID], 
     (req, res, next) => {
         const { plantID } = req.params;
-        plants.findPlantById({plantID})
+        plants.findPlantById(plantID)
             .then((resp) => {
                 res.status(200).json(resp);
             }).catch(next);
