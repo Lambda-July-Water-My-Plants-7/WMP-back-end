@@ -9,8 +9,7 @@ const validPhone = (req, res, next) => {
     } else {
         res.status(400).json({
             message: "Improper phone number format",
-            phoneNumber: phoneNumber,
-            response: response
+            phoneNumber: phoneNumber
         })
     }
 }
