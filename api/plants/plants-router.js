@@ -30,7 +30,7 @@ router.post("/", (req, res, next) => {
 
     plants.createPlant(neoPlant)
         .then(() => {
-            res.status(201).json({...neoPlant});
+            res.status(201).json(neoPlant);
         }).catch(next);
 })
 
