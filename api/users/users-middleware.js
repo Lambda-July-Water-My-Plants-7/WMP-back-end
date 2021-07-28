@@ -1,9 +1,8 @@
 const { phone } = require('phone');
 
 const validPhone = (req, res, next) => {
-    let { phoneNumber } = req.body;
-    phoneNumber = "+" + phoneNumber;
-    const response = phone(phoneNumber);
+    const { phoneNumber } = req.body;
+    const response = phone(phoneNumber, { country: 'USA'});
 
     if (response.isValid) {
         next();
