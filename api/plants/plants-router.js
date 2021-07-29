@@ -39,6 +39,7 @@ router.put("/:plantID", [checkPlantID, secureByOwnerID], (req, res, next) => {
     let neoPlant = req.body;
     neoPlant.plantID = plantID;
     neoPlant.ownerID = req.decoded.id;
+    neoPlant.lastWatered = new Date().toLocaleString();
 
     plants.updatePlant(neoPlant)
         .then((resp) => {
