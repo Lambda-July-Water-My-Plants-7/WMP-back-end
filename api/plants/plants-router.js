@@ -30,7 +30,7 @@ router.post("/", (req, res, next) => {
 
     plants.createPlant(neoPlant)
         .then(() => {
-            res.status(201).json({...neoPlant});
+            res.status(201).json(neoPlant);
         }).catch(next);
 })
 
@@ -39,6 +39,7 @@ router.put("/:plantID", [checkPlantID, secureByOwnerID], (req, res, next) => {
     let neoPlant = req.body;
     neoPlant.plantID = plantID;
     neoPlant.ownerID = req.decoded.id;
+    neoPlant.lastWatered = new Date().toLocaleString();
 
     plants.updatePlant(neoPlant)
         .then((resp) => {
