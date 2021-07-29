@@ -16,7 +16,7 @@ router.post("/", (req, res, next) => {
     
     species.createSpecies(neoSpecies)
         .then(() => {
-            res.status(201).json({...neoPlant});
+            res.status(201).json({...neoSpecies});
         }).catch(next);
 })
 
