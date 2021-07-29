@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkPlantID, secureByOwnerID } = require('./plants-middleware');
+const { checkPlantID, secureByOwnerID, validateSpeciesName } = require('./plants-middleware');
 
 const plants = require('./plants-model');
 const router = express.Router();
@@ -21,7 +21,7 @@ router.get("/:plantID", [checkPlantID, secureByOwnerID],
             }).catch(next);
     })
 
-router.post("/", (req, res, next) => {
+router.post("/", [validateSpeciesName], (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
@@ -37,16 +37,18 @@ router.post("/", (req, res, next) => {
         }).catch(next);
 })
 
-router.put("/:plantID", [checkPlantID, secureByOwnerID], (req, res, next) => {
-    const { plantID } = req.params;
-    let neoPlant = req.body;
-    neoPlant.plantID = plantID;
-    neoPlant.ownerID = req.decoded.id;
-    
-    plants.updatePlant(neoPlant)
-        .then((resp) => {
-            res.status(201).json(resp);
-        }).catch(next);
+router.put("/:plantID", 
+    [checkPlantID, secureByOwnerID, validateSpeciesName], 
+    (req, res, next) => {
+        const { plantID } = req.params;
+        let neoPlant = req.body;
+        neoPlant.plantID = plantID;
+        neoPlant.ownerID = req.decoded.id;
+        
+        plants.updatePlant(neoPlant)
+            .then((resp) => {
+                res.status(201).json(resp);
+            }).catch(next);
 })
 
 router.delete("/:plantID", [checkPlantID, secureByOwnerID], (req, res, next) => {

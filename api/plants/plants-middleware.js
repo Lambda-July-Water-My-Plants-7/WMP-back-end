@@ -28,7 +28,23 @@ const secureByOwnerID = async (req, res, next) => {
     }
 }
 
+const validateSpeciesName = (req, res, next) => {
+    let { speciesID } = req.body; 
+  
+    if (!speciesID || typeof(speciesID) === "number" ) {
+      next();
+    } else {
+      speciesID = speciesID.trim();
+      if (speciesID === "") {
+        speciesID = "hybrid";
+      }
+    }
+    req.body.speciesID = speciesID;
+    next();
+  }  
+
 module.exports = {
     checkPlantID,
-    secureByOwnerID
+    secureByOwnerID,
+    validateSpeciesName
 }
