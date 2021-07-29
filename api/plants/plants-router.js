@@ -1,5 +1,5 @@
 const express = require('express');
-const { checkPlantID, secureByOwnerID, validateSpeciesName } = require('./plants-middleware');
+const { checkPlantID, secureByOwnerID } = require('./plants-middleware');
 
 const plants = require('./plants-model');
 const router = express.Router();
@@ -21,7 +21,7 @@ router.get("/:plantID", [checkPlantID, secureByOwnerID],
             }).catch(next);
     })
 
-router.post("/", [validateSpeciesName], (req, res, next) => {
+router.post("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
@@ -38,7 +38,7 @@ router.post("/", [validateSpeciesName], (req, res, next) => {
 })
 
 router.put("/:plantID", 
-    [checkPlantID, secureByOwnerID, validateSpeciesName], 
+    [checkPlantID, secureByOwnerID], 
     (req, res, next) => {
         const { plantID } = req.params;
         let neoPlant = req.body;
