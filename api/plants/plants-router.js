@@ -25,6 +25,7 @@ router.post("/", (req, res, next) => {
     const ownerID = req.decoded.id;
     let neoPlant = req.body;
     neoPlant.ownerID = ownerID;
+    neoPlant.lastWatered = new Date(Date.now()).toLocaleString();
  
     delete neoPlant.userID; //remove userID if sent
 
@@ -39,8 +40,7 @@ router.put("/:plantID", [checkPlantID, secureByOwnerID], (req, res, next) => {
     let neoPlant = req.body;
     neoPlant.plantID = plantID;
     neoPlant.ownerID = req.decoded.id;
-    neoPlant.lastWatered = new Date(Date.now()).toLocaleString();
-
+    
     plants.updatePlant(neoPlant)
         .then((resp) => {
             res.status(201).json(resp);
