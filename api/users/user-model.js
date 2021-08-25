@@ -4,7 +4,8 @@ module.exports = {
     findUsers,
     findUserByID,
     findUserByUsername,
-    registerUser
+    registerUser,
+    updateUser
 }
 
 // add
@@ -33,4 +34,12 @@ async function findUserByUsername(key) {
         .where({username: key})
         .first();
 }
+
+const updateUser = async (neoUser) => {
+    await db("users")
+    .where({ userID: neoUser.userID})
+        .update(neoUser);
+    return await findUserByID(neoUser.userID);
+}
+
 
