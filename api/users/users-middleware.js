@@ -1,11 +1,11 @@
 const { phone } = require('phone');
-const { findUsers, findUserByID } = require('./user-model');
+const { findUserByID } = require('./user-model');
 
 const secureByOwnerID = async (req, res, next) => {
     const { userID } = req.params;
     const certID = req.decoded.id;
 
-    const target = await findUsers.findUserByID(userID);
+    const target = await findUserByID(userID);
 
     if (target.userID === certID) {
         next();
