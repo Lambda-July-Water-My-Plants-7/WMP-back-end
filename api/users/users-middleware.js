@@ -14,6 +14,17 @@ const secureByOwnerID = async (req, res, next) => {
     }
 }
 
+const encryptPassword = (req, res, next) => {
+    const { password } = req.body
+
+    if (password) {
+        const hash = bcrypt.hashSync(neoUser.password, 12);
+        req.body.password = hash;
+    }
+
+    next();
+}
+
 const validPhone = (req, res, next) => {
     const { phoneNumber } = req.body;
     const response = phone(phoneNumber);
@@ -44,6 +55,7 @@ const verifyUserPayload = (req, res, next) => {
 }
 
 module.exports = {
+    encryptPassword,
     secureByOwnerID,
     verifyUserPayload,
     validPhone
