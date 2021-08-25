@@ -26,9 +26,9 @@ router.put('/:userID',
 
 router.put('/', [encryptPassword],
     (req, res, next) => {
-        const {userID} = req.decoded;
+        const {id} = req.decoded;
         let neoUser = req.body;
-        neoUser.userID = userID;
+        neoUser.userID = id;
 
         users.updateUser(neoUser)
             .then((resp) => {
