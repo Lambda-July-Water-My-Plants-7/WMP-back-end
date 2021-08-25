@@ -24,4 +24,16 @@ router.put('/:userID',
             }).catch(next);
 })
 
+router.put('/', [encryptPassword],
+    (req, res, next) => {
+        const {userID} = req.decoded;
+        let neoUser = req.body;
+        neoUser.userID = userID;
+
+        users.updateUser(neoUser)
+            .then((resp) => {
+                res.status(201).json(resp);
+            }).catch(next);
+})
+
 module.exports = router;
