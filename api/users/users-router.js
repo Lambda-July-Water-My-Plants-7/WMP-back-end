@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.put('/:userID', 
-    [secureByOwnerID],
+    //[secureByOwnerID],
     (req, res, next) => {
         const { userID } = req.params;
         let neoUser = req.body;
