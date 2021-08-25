@@ -1,7 +1,7 @@
 const express = require('express');
 
 const users = require("./user-model");
-const { secureByOwnerID } = require('./users-middleware');
+const { secureByOwnerID, encryptPassword } = require('./users-middleware');
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.put('/:userID', 
-    [secureByOwnerID],
+    [secureByOwnerID, encryptPassword],
     (req, res, next) => {
         const { userID } = req.params;
         let neoUser = req.body;
