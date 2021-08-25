@@ -19,7 +19,7 @@ const encryptPassword = (req, res, next) => {
     const { password } = req.body
 
     if (password) {
-        const hash = bcrypt.hashSync(neoUser.password, 12);
+        const hash = bcrypt.hashSync(password, 12);
         req.body.password = hash;
     }
 
