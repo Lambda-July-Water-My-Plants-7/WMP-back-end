@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const { phone } = require('phone');
 const { findUserByID } = require('./user-model');
 
