@@ -5,7 +5,9 @@ const { secureByOwnerID, encryptPassword } = require('./users-middleware');
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-    users.findUsers()
+    const {id} = req.decoded;
+    
+    users.findUserByID(id)
     .then(resp => {
         res.status(200).json(resp);
     }).catch(next);
