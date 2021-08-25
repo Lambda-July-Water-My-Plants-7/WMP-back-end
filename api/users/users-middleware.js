@@ -1,4 +1,18 @@
 const { phone } = require('phone');
+const { findUsers, findUserByID } = require('./user-model');
+
+const secureByOwnerID = async (req, res, next) => {
+    const { userID } = req.params;
+    const certID = req.decoded.id;
+
+    const target = await findUsers.findUserByID(userID);
+
+    if (target.userID === certID) {
+        next();
+    } else {
+        res.status(403).json({ message: "That is not your user" });
+    }
+}
 
 const validPhone = (req, res, next) => {
     const { phoneNumber } = req.body;
@@ -30,6 +44,7 @@ const verifyUserPayload = (req, res, next) => {
 }
 
 module.exports = {
+    secureByOwnerID,
     verifyUserPayload,
     validPhone
 }
