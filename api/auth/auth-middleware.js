@@ -46,7 +46,7 @@ function verifyUserDoesNotExist(req, res, next) {
 
     users.findUserByUsername(username)
         .then(resp => {
-            if (resp && resp.username == username) {
+            if (resp && resp.username && resp.username == username) {
                 res.status(403).json({
                     message: "A user with that username already exists"
                 })
