@@ -44,7 +44,6 @@ function verifyToken(req, res, next) {
 function verifyUserDoesNotExist(req, res, next) {
     const { username } = req.body;
 
-    console.log(username);
     users.findUserByUsername(username)
         .then(resp => {
             if (resp && resp.username && resp.username == username) {
@@ -52,7 +51,7 @@ function verifyUserDoesNotExist(req, res, next) {
                     message: "A user with that username already exists"
                 })
             } else {
-                next()
+                res.status(200).json(resp)
             }
         }).catch(next);
 }
