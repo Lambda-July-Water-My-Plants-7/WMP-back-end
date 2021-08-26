@@ -51,7 +51,7 @@ function verifyUserDoesNotExist(req, res, next) {
                     message: "A user with that username already exists"
                 })
             } else {
-                res.status(200).json(resp)
+                next();
             }
         }).catch(next);
 }
