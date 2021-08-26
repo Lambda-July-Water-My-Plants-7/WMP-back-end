@@ -13,6 +13,15 @@ router.get('/', (req, res, next) => {
     }).catch(next);
 })
 
+router.get('/:username', (req, res, next) => {
+    const {username} = req.params;
+    
+    users.findUserByUsername(username)
+    .then(resp => {
+        res.status(200).json(resp);
+    }).catch(next);
+})
+
 router.put('/:userID', 
     [secureByOwnerID, encryptPassword],
     (req, res, next) => {
