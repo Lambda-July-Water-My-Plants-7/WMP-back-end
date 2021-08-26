@@ -23,6 +23,18 @@ router.get('/:username', (req, res, next) => {
     }).catch(next);
 })
 
+router.put('/', [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
+    (req, res, next) => {
+        const {id} = req.decoded;
+        let neoUser = req.body;
+        neoUser.userID = id;
+
+        users.updateUser(neoUser)
+            .then((resp) => {
+                res.status(201).json(resp);
+            }).catch(next);
+})
+
 router.put('/:userID', 
     [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
     (req, res, next) => {
@@ -30,18 +42,6 @@ router.put('/:userID',
         let neoUser = req.body;
         neoUser.userID = userID;
         
-        users.updateUser(neoUser)
-            .then((resp) => {
-                res.status(201).json(resp);
-            }).catch(next);
-})
-
-router.put('/', [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
-    (req, res, next) => {
-        const {id} = req.decoded;
-        let neoUser = req.body;
-        neoUser.userID = id;
-
         users.updateUser(neoUser)
             .then((resp) => {
                 res.status(201).json(resp);
