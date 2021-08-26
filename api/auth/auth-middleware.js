@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { TOKEN_SECRET } = require('../../config/secrets');
+const users = require('../users/user-model');
 
 function getUserID(req, res, next) {
     let neoID =0 
@@ -40,7 +41,22 @@ function verifyToken(req, res, next) {
     }
 }
 
+function verifyUserDoesNotExist(req, res, next) {
+    const { username } = req.body;
+
+    users.findUserByUsername(username)
+        .then(resp => {
+            if (resp) {
+                res.status(403).json({
+                    message: "A user with that username already exists"
+                })
+            }
+        }).catch(next);
+    next()
+}
+
 module.exports = {
     getUserID,
-    verifyToken
+    verifyToken,
+    verifyUserDoesNotExist
 }
