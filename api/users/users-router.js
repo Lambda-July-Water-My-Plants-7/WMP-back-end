@@ -35,17 +35,4 @@ router.put('/', [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
             }).catch(next);
 })
 
-router.put('/:userID', 
-    [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
-    (req, res, next) => {
-        const { userID } = req.params;
-        let neoUser = req.body;
-        neoUser.userID = userID;
-        
-        users.updateUser(neoUser)
-            .then((resp) => {
-                res.status(201).json(resp);
-            }).catch(next);
-})
-
 module.exports = router;
