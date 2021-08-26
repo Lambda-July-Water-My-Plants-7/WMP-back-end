@@ -2,6 +2,7 @@ const express = require('express');
 
 const users = require("./user-model");
 const { secureByOwnerID, encryptPassword } = require('./users-middleware');
+const { verifyUserDoesNotExist } = require('../auth/auth-middleware')
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
@@ -23,7 +24,7 @@ router.get('/:username', (req, res, next) => {
 })
 
 router.put('/:userID', 
-    [secureByOwnerID, encryptPassword],
+    [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
     (req, res, next) => {
         const { userID } = req.params;
         let neoUser = req.body;
