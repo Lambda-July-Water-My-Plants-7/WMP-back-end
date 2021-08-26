@@ -44,6 +44,7 @@ function verifyToken(req, res, next) {
 function verifyUserDoesNotExist(req, res, next) {
     const { username } = req.body;
 
+    console.log(username);
     users.findUserByUsername(username)
         .then(resp => {
             if (resp && resp.username && resp.username == username) {
