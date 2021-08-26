@@ -36,7 +36,7 @@ router.put('/:userID',
             }).catch(next);
 })
 
-router.put('/', [encryptPassword],
+router.put('/', [secureByOwnerID, verifyUserDoesNotExist, encryptPassword],
     (req, res, next) => {
         const {id} = req.decoded;
         let neoUser = req.body;
