@@ -50,9 +50,10 @@ function verifyUserDoesNotExist(req, res, next) {
                 res.status(403).json({
                     message: "A user with that username already exists"
                 })
+            } else {
+                next()
             }
         }).catch(next);
-    next()
 }
 
 module.exports = {
