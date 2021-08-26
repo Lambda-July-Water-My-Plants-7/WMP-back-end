@@ -5,7 +5,7 @@ const users = require("../users/user-model");
 const router = express.Router()
 
 const { generateToken } = require('./auth-token');
-const { verifyToken } = require('./auth-middleware');
+const { verifyToken, verifyUserDoesNotExist } = require('./auth-middleware');
 const { verifyUserPayload, validPhone } = require('../users/users-middleware');
 
 router.post('/login', (req, res, next) => {
@@ -32,7 +32,7 @@ router.post('/login', (req, res, next) => {
 
 })
 
-router.post('/register', [verifyUserPayload, validPhone], (req, res, next) => {
+router.post('/register', [verifyUserPayload, validPhone, verifyUserDoesNotExist], (req, res, next) => {
     const neoUser = req.body;
 
     const hash = bcrypt.hashSync(neoUser.password, 12);
